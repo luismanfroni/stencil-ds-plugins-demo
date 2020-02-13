@@ -2,6 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { angularOutputTarget, ValueAccessorConfig } from '@stencil/angular-output-target';
 import { reactOutputTarget } from '@stencil/react-output-target';
+import { vueOutputTarget } from './vue-output-target';
 
 const angularValueAccessorBindings: ValueAccessorConfig[] = [
   {
@@ -16,6 +17,13 @@ export const config: Config = {
   namespace: 'demo',
   plugins: [sass()],
   outputTargets: [
+    vueOutputTarget({
+      componentCorePackage: 'component-library',
+      proxiesFile: '../component-library-vue/src/components.ts',
+      modelConfigs: {
+        "slideChanged": "value"
+      }
+    }),
     angularOutputTarget({
       componentCorePackage: 'component-library',
       directivesProxyFile: '../component-library-angular/src/directives/proxies.ts',
